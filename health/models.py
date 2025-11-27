@@ -57,7 +57,7 @@ class Prescription(models.Model):
             
     def save(self, *args, **kwargs):
         self.full_clean()
-        super().save(*args, **kwargs)  # Fixed: super() needs parentheses
+        super().save(*args, **kwargs) 
 
     def __str__(self):
         return f"{self.patient_name} - {self.medication_name}"
@@ -86,7 +86,7 @@ class Event(models.Model):
         ordering = ['-created_at']
     
     def clean(self):
-        super().clean()  # Added missing super().clean()
+        super().clean()  
 
         if self.description and not self.description.strip():
             raise ValidationError({'description': 'Description cannot be empty'})
@@ -97,7 +97,7 @@ class Event(models.Model):
             if self.performed_by.strip().isdigit():
                 raise ValidationError({'performed_by': 'Name cannot have digits'})
     
-    def save(self, *args, **kwargs):  # Fixed: indentation
+    def save(self, *args, **kwargs):  
         """Override save to enforce validation and update prescription timestamp."""
         self.full_clean()
         super().save(*args, **kwargs)
